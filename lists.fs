@@ -55,3 +55,14 @@ let rec filter f l =
              filter f tl
 
 let list' = filter multiplicity list3
+//new
+let genSqr n =
+    let rec genSqr' a =
+        if a*a < n then
+            a*a::genSqr' (a+1)
+        else 
+            []
+    genSqr' 1
+
+let list4 = genSqr 64
+
