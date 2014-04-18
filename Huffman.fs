@@ -1,40 +1,49 @@
-﻿(*
-weight: CodeTree -> int
-chars: CodeTree -> char list
-let makeCodeTree left right =
-    Fork(left,right,chars left @ chars right, weight left, weight right)
-let stringZchars str = Seq.toList str
-times: char list -> (char*int) list
-makeOrderedLeafList: (char*int) list -> CodeTree list // листья упорядочены по в весу
-singltone: CodeTree list -> bool
-combine: CodeTree list -> CodeTree list
-(until singltone combine) trees 
+﻿/////////////////////////////
+//Borovikov Nikita (с) 2014//
+//Huffman////////////////////
+/////////////////////////////
 
-*)
+
 module Huffman
-//<-0, -> 1
+
+////////////////////////
+
 type CodeTree = 
   | Fork of CodeTree * CodeTree * char list * int
   | Leaf of char * int
 
 
-// code tree
-let demoStr = "aabcabcd"
-let demoTree = Fork(Fork(Fork(Leaf('d', 1), Leaf('c', 2), ['c';'d'], 3), Leaf('b', 2), ['b';'c';'d'], 5), Leaf('a', 3), ['a';'b';'c';'d'], 8)
+////////////////////////
+
+let weight tree =
+    match tree with
+    | Fork(_, _, _, wg) -> wg
+    | Leaf(_, wg) -> wg
+
+////////////////////////
+
+let chars tree =
+    let rec chars' tree acc =
+        match tree with
+        |Fork(l, r, _, _) ->
+            (chars' l acc)@(chars' r acc)
+        |Leaf(ch,_) -> ch::[]
+    chars' tree []
+
+////////////////////////
 
 let stringZchars str = Seq.toList str
 
+////////////////////////
 
-let rec add sumb overlist: (char*int) list =
+let rec add sumb overlist: (char * int) list =
     match overlist with
     | [] -> (sumb,1)::[]
-    | hd::tl -> 
-        match hd with
-        | (ch,num) -> 
-            if ch = sumb then
-                (sumb,num+1)::tl
-            else
-                hd::(add sumb tl)
+    | (ch, num)::tl -> 
+        if ch = sumb then
+            (sumb, num+1)::tl
+        else
+            (ch, num)::(add sumb tl)
 
 let times charlist = 
     let rec times' charlist overlist =
@@ -43,24 +52,51 @@ let times charlist =
         | hd::tl -> times' tl (add hd overlist)
     times' charlist []
 
-let addList: (char*int) (Leaf list) -> Leaf list
-let rec addLeaf pair CodeTreeList =
-    match CodeTreeList with
-        | [] -> (Leaf:= pair)::[]
-        | hd::tl ->
-            if snd pair > snd hd then
-                addLeaf pair tl
+////////////////////////
+
+let rec addLeaf (ch, num) (codeTreeList: CodeTree list) =
+    match codeTreeList with
+        | [] -> Leaf(ch, num)::[]
+        | Leaf(a, b)::tl ->
+            if num > b then
+                Leaf(a, b)::addLeaf (ch, num) tl
             else 
+                CodeTree.Leaf(ch, num)::codeTreeList
+        | _ -> failwith "Wrong structure of tree"
 
 let makeOrderedLeafList overlist =
-    let rec MOLL overlist CodeTreeList =
+    let rec MOLL overlist codeTreeList=
         match overlist with
-        | [] -> CodeTreeList
-        | hd::tl -> addLeaf hd CodeTreeList
-            
-            
-    
+        | [] -> codeTreeList
+        | (ch, num)::tl -> MOLL tl (addLeaf (ch, num) codeTreeList)
+    MOLL overlist []
 
-let demoList = times (stringZchars demoStr)
-    
+////////////////////////
 
+let singltone (cLT: CodeTree list) =
+    match cLT with
+    |hd::[] -> true
+    |_ -> false
+
+////////////////////////
+
+let rec combine cTL =
+    if not (singltone cTL) then
+        match cTL with
+        | a::b::tl -> 
+            let temp = Fork (a, b, (chars a) @ (chars b), weight a + weight b)::tl
+            combine (List.sortBy (fun elem -> weight elem) temp)
+        | _ -> failwith "End condition was corrupted"
+    else cTL
+
+////////////////////////
+   
+let createCodeTree initStr = 
+    let list = combine (makeOrderedLeafList  (times (stringZchars initStr)))
+    match list with
+    | hd::[] -> hd
+    | _ -> failwith "Wrong input"
+
+////////////////////////
+
+let demoTree2 = createCodeTree "vsvsvvkppkppppkskvkvk"
