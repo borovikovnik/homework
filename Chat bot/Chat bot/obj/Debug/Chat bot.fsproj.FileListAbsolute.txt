@@ -1,0 +1,10 @@
+D:\Projects\Chat bot\Chat bot\obj\Debug\Chat bot.fsprojResolveAssemblyReference.cache
+D:\Projects\Chat bot\Chat bot\bin\Debug\Chat_bot.exe.config
+D:\Projects\Chat bot\Chat bot\bin\Debug\Chat_bot.XML
+D:\Projects\Chat bot\Chat bot\bin\Debug\Chat_bot.exe
+D:\Projects\Chat bot\Chat bot\bin\Debug\Chat_bot.pdb
+D:\Projects\Chat bot\Chat bot\bin\Debug\FSharp.Core.dll
+D:\Projects\Chat bot\Chat bot\bin\Debug\FSharp.Core.xml
+D:\Projects\Chat bot\Chat bot\bin\Debug\ru\FSharp.Core.resources.dll
+D:\Projects\Chat bot\Chat bot\obj\Debug\Chat_bot.exe
+D:\Projects\Chat bot\Chat bot\obj\Debug\Chat_bot.pdb
