@@ -19,7 +19,7 @@ let rec readMsg =
     let btExit = new Button(Text="Exit", Top = 100, Left = 207, Height = 20)
 
     tb.Focus |> ignore
-
+    frm.Icon <- new System.Drawing.Icon("main.ico")
     let answer userMsg =
         lbY.Text <- "You: " + userMsg 
         lbE.Text <- "Eliza: " + (meliza_response userMsg)

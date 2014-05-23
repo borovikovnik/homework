@@ -68,7 +68,7 @@ let hello_response () =
         | 6 -> "Hello."
         | 7 -> "Good day."
         | 8 -> "Salutation!"
-        | 9 -> "Wellcome!"
+        | _ -> "Wellcome!"
 
 let good_bye_response () =
     let n = rand.Next(10) 
@@ -82,7 +82,7 @@ let good_bye_response () =
         | 6 -> "Adios."
         | 7 -> "See you."
         | 8 -> "Please don't go"
-        | 9 -> "Why are you leaving me alone?"
+        | _ -> "Why are you leaving me alone?"
 
 let personal_response (str:string) =
     let n = rand.Next(10) 
@@ -96,7 +96,7 @@ let personal_response (str:string) =
         | 6 -> "I think a better world is possible."
         | 7 -> "I have no car, I go to work in a bicycle."
         | 8 -> "I am very concerned with the environment."
-        | 9 -> "I hate lyers."
+        | _ -> "I hate lyers."
 
 let question_response (str:string) =
     let n = rand.Next(10) 
@@ -110,7 +110,7 @@ let question_response (str:string) =
         | 6 -> "Don't bother me with " + str
         | 7 -> "Let us consider talking about " + str + " a bit further."
         | 8 -> "Why are interested in " + str + "?"
-        | 9 -> "Do you think " + str + " is worth dicussing it"
+        | _ -> "Do you think " + str + " is worth dicussing it"
 
 let answer_response (str:string) =
     let n = rand.Next(10) 
@@ -124,7 +124,7 @@ let answer_response (str:string) =
         | 6 -> "That's ok with " + str
         | 7 -> "Ok, " + str + " is very interesting subject."
         | 8 -> "No, I really dont matter whether " + str + " or not"
-        | 9 -> "If only it were always be an answer for " + str + "!"
+        | _ -> "If only it were always be an answer for " + str + "!"
 
 let wish_response (str:string) =
     let n = rand.Next(10) 
@@ -138,7 +138,7 @@ let wish_response (str:string) =
         | 6 -> "If only it were true that " + str + "!"
         | 7 -> "We some times need a miracle!"
         | 8 -> "I do not belive on miracles myself"
-        | 9 -> "Your have to put your feets on the ground!"
+        | _ -> "Your have to put your feets on the ground!"
 
 
 let negative_response (str:string) =
@@ -153,7 +153,7 @@ let negative_response (str:string) =
         | 6 -> "I do not see the dificulty to face it"
         | 7 -> "Do not worry, we always find a light at the end of the tunnel"
         | 8 -> "This crisis wont last forever"
-        | 9 -> "There are signs of recovery"
+        | _ -> "There are signs of recovery"
 
 let positive_response (str:string) =
     let n = rand.Next(10) 
@@ -167,7 +167,7 @@ let positive_response (str:string) =
         | 6 -> "At least I haven't loose my house"
         | 7 -> "Yes, you are absolutely right"
         | 8 -> "I am confident we will find a solution"
-        | 9 -> "We can help each other"
+        | _ -> "We can help each other"
 
 let math_response (str:string) =
     let n = rand.Next(10) 
@@ -181,7 +181,7 @@ let math_response (str:string) =
         | 6 -> "The expresion " + str + " is meaningless"
         | 7 -> "That's why I love computers they do all the math stuff"
         | 8 -> "Don't bother me with silly questions"
-        | 9 -> "Yes, you seems very intelligent, but I do not love math"
+        | _ -> "Yes, you seems very intelligent, but I do not love math"
 
 let none_response (str:string) =
     let n = rand.Next(10) 
@@ -195,7 +195,7 @@ let none_response (str:string) =
         | 6 -> "Where were we? I losed track of the conversation."
         | 7 -> "Very interesting"
         | 8 -> "Wow!"
-        | 9 -> "Mmmmmm!"
+        | _ -> "Mmmmmm!"
 
 // main recursive response function
 // find the first match with a key token
