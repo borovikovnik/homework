@@ -53,3 +53,10 @@ let dig_sum n =
     ds (fact n) 0
 
 let x3 = dig_sum 100
+
+///////////////////////////////// 
+
+let Cnk n k =
+    (fact n) / ((fact k) * (fact (n - k)))
+
+let waysNum = Cnk 38 19
