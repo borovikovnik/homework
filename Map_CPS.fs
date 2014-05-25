@@ -3,7 +3,7 @@
 //Map'CPS////////////////////
 /////////////////////////////
 
-let swap x y = y x
+let func x y = y (x + 3)
 
 let rec map f l c =
     match l with
@@ -12,4 +12,4 @@ let rec map f l c =
 
 let list = [1..20]
 
-map swap list (printfn "%A") 
+map func list (printfn "%A") 
