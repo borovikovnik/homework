@@ -29,8 +29,7 @@ let cmp set1 set2 =
     | VerticalLine xL1 -> 
         match set2 with
         | VerticalLine xL2 -> 
-            if xL1 = xL2 then true
-            else false
+            xL1 = xL2
         | _ -> false
 
     | LineSegment ((x1, y1), (x2, y2)) -> 
