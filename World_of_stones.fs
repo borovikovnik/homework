@@ -17,7 +17,6 @@ type RareStone(size: int, value: int, authenticity: bool) =
     let selfvalue = value*size
     abstract member Value : int
     default x.Value = selfvalue
-    abstract member Sell : unit * unit
 
 type Mineral(name: string, size: int, value: int, authenticity: bool) =
     inherit RareStone(size, value, authenticity)
@@ -25,32 +24,41 @@ type Mineral(name: string, size: int, value: int, authenticity: bool) =
     let mutable size = size
     let mutable selfvalue = value*size
     let mutable authenticity = authenticity
-    member this.Check () =
-        if authenticity = false then
-            selfvalue <- selfvalue/10
-            authenticity <- true
-            name <- "False" + name
-    override this.Sell = printfn "You got %A $"  selfvalue , size <- 0 
+
+    member this.IsGenuine
+        with get() = authenticity
+        and set(truth) = authenticity <- truth
+
+    member this.Price 
+        with get() = selfvalue
+        and set(newPrise) = selfvalue <- newPrise
+
+    member this.Name 
+        with get() = name
+        and set(newName) = name <- newName
 
 
-type Superman(name: string, live: bool) =
-    let mutable live = live
-    member this.Death () = live <- false
-    member this.CheckLife = live
+type Superman(name: string, isAlive: bool) =
+    let mutable isAlive = isAlive
+    member this.Death () = isAlive <- false
+    member this.CheckLife = isAlive
+    member this.CheckStone (aim: Mineral) =
+        if not aim.IsGenuine then
+            aim.Price <- aim.Price / 10
+            aim.IsGenuine <- false
+            aim.Name <- "False" + aim.Name
+            
 
 type Kryptonit(size: int) =
     inherit RareStone(size, 9999, true)
-    let mutable size = size
     member this.TryKillSuperman (myAim: Superman) = 
         if size > 10 then myAim.Death()
-    override this.Sell = printfn "%A" "You sell Kryptonit?! You are fool!", size <- 0
 
 type PhilosophersStone(authenticity: bool) =
     inherit RareStone(10, 0, authenticity)
     member this.Alchemy(stone: Stone) = 
-        let AlchemyResult = new Mineral("Gold", stone.Size, 100, authenticity)
-        AlchemyResult
-    override this.Sell = failwith "Unexpected choice..."
+        let alchemyResult = new Mineral("Gold", stone.Size, 100, authenticity)
+        alchemyResult
 
 (*
 let mySuperman = new Superman("Klark", true)
