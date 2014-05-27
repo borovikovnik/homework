@@ -16,8 +16,8 @@ type Geom =
 let deviation = 0.00001
 
 let (==) a b = abs(a - b) < deviation
-let (>>) a b = a + deviation > b
-let (<<) a b = a - deviation < b
+let (>>) a b = a - b > deviation
+let (<<) a b = a - b < -deviation 
 
 let canonLS ((x1, y1), (x2, y2)) =
     if x1 << x2 then 
