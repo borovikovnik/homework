@@ -9,7 +9,7 @@ open elizaBotLibrary
 open System.Windows.Forms
 open System.Drawing
 
-let rec readMsg = 
+let readMsg = 
     let frm = new Form(Width = 500, Height = 160, Location = Point(900,900))
     let lbY = new Label(Text = sprintf "You: ...", Width = 500, Top = 10, Height = 20)
     let lbE = new Label(Text = sprintf "Eliza: Enter your message...", Width = 500, Top = 30, Height = 15)
@@ -25,7 +25,9 @@ let rec readMsg =
         lbE.Text <- "Eliza: " + (meliza_response userMsg)
         tb.Text <- ""
     
-    tb.KeyDown.Add (fun key -> if key.KeyCode = Keys.Escape then frm.Close()
+    tb.KeyDown.Add (fun key -> if key.KeyCode = Keys.Escape then 
+                                   frm.Close()
+                                   Application.Exit()
                                else if key.KeyCode = Keys.Enter then 
                                    answer tb.Text
                                )
@@ -38,11 +40,12 @@ let rec readMsg =
                                btBeep.Show()
                                )
 
-    btExit.Click.Add (fun _ -> frm.Close())
+    btExit.Click.Add (fun _ -> frm.Close()
+                               Application.Exit()
+                               )
     tb.LostFocus.Add (fun _ -> tb.Focus|> ignore)
     frm.Controls.AddRange [| lbY; lbE; tb; btSend; btExit; btBeep |]
     frm.Show()
 
-[<EntryPoint>]
-readMsg
+
 Application.Run()
