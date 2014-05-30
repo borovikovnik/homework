@@ -3,7 +3,10 @@
 //Web'CPS////////////////////
 /////////////////////////////
 
+module webCPS
+
 open WebR
+open MapCPS
 
 let urls =
     [
@@ -35,10 +38,10 @@ let takePic site =
 
 
 let rec findPic urls c =
-    match urls with
-    | hd :: tl -> getUrl hd (fun x -> findPic tl (fun y -> (takePic x @ y) |> Seq.distinct |> Seq.toList |> c ))
-    | [] -> c []
+    map getUrl urls (fun x -> Seq.map (fun y -> takePic y) x |> Seq.distinct |> Seq.concat |> Seq.toList |> c)
 
-findPic urls (printfn "%A")
+let marker = ref false
 
-System.Console.ReadKey() |> ignore
+findPic urls (fun v -> printfn "%A" v; marker := true)
+
+while not !marker do System.Threading.Thread.Sleep(100)
