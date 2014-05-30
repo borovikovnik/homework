@@ -3,12 +3,11 @@
 //Dictionary/////////////////
 /////////////////////////////
 
-module Map 
+//module Map 
 
 open System
 open System.Collections
 open System.Collections.Generic
-open Microsoft.FSharp.Core
 
 type private Tree<'key, 'value when 'key: comparison and 'value: equality>=
 | Fork of Tree<'key, 'value> * Tree<'key, 'value> * 'key * 'value * int
