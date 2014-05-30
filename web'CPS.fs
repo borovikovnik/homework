@@ -6,7 +6,7 @@
 module webCPS
 
 open WebR
-open MapCPS
+open CPS
 
 let urls =
     [
@@ -38,7 +38,7 @@ let takePic site =
 
 
 let rec findPic urls c =
-    map getUrl urls (fun x -> Seq.map (fun y -> takePic y) x |> Seq.distinct |> Seq.concat |> Seq.toList |> c)
+    CPS.map getUrl urls (Seq.map takePic >> Seq.distinct >> Seq.concat >> Seq.toList >> c)
 
 let marker = ref false
 
