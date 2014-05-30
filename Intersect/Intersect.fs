@@ -16,14 +16,12 @@ type Geom =
 let deviation = 0.00001
 
 let (==) a b = abs(a - b) < deviation
-let (>>) a b = a - b > deviation
-let (<<) a b = a - b < -deviation 
 
 let canonLS ((x1, y1), (x2, y2)) =
-    if x1 << x2 then 
+    if x1 < x2 then 
         ((x1, y1), (x2, y2)) 
     elif x1 == x2 then
-        if y1 >> y2 then
+        if y1 > y2 then
             ((x2, y2), (x1, y1)) 
         else
             ((x1, y1), (x2, y2))
@@ -50,7 +48,7 @@ let Point'VerticalLine (xP, yP) xL =
     else NoPoint
 
 let Point'LineSegment (xP, yP) ((x1, y1), (x2, y2)) =
-    if (yP - y1)*(x2 - x1) == (xP - x1)*(y2 - y1) &&  xP >> x1 && xP << x2 then 
+    if (yP - y1)*(x2 - x1) == (xP - x1)*(y2 - y1) &&  xP > x1 && xP < x2 then 
         Point (xP, yP)
     else 
         NoPoint
@@ -82,7 +80,7 @@ let VerticalLine'VerticalLine xL1 xL2 =
     else NoPoint
 
 let VerticalLine'LineSegment xL ((x1, y1), (x2, y2)) =
-    if xL >> x1 && xL << x2 then 
+    if xL > x1 && xL < x2 then 
         if x1 == x2 then VerticalLine xL
         else Point (xL, (xL - x1)*(y2 - y1)/(x2 - x1) + y1)
     else NoPoint
@@ -90,18 +88,18 @@ let VerticalLine'LineSegment xL ((x1, y1), (x2, y2)) =
 //////////////////////////////
 
 let OnOneLine ((x1, y1), (x2, y2)) ((x3, y3), (x4, y4)) =
-    if y2 << y3 || y1 >> y4 then
+    if y2 < y3 || y1 > y4 then
         NoPoint
     elif y2 == y3 then
         Point (x2, y2)
     elif y1 == y4 then
         Point (x1, y1)
-    elif y1 << y3 then
-        if y2 >> y4 then
+    elif y1 < y3 then
+        if y2 > y4 then
             LineSegment ((x3, y3), (x4, y4))
         else
             LineSegment ((x3, y3), (x2, y2))
-    elif y2 >> y4 then
+    elif y2 > y4 then
         LineSegment ((x1, y1), (x4, y4))
     else
         LineSegment ((x1, y1), (x2, y2))
@@ -116,7 +114,7 @@ let rec LineSegment'LineSegment ((x1, y1), (x2, y2)) ((x3, y3), (x4, y4)) =
             let VL'LS = VerticalLine'LineSegment x1 ((x3, y3), (x4, y4))
             match VL'LS with
             | Point (xP, yP) -> 
-                                if yP << y1 || yP >> y2 then NoPoint
+                                if yP < y1 || yP > y2 then NoPoint
                                 else Point (xP, yP)
             | _ -> NoPoint
     elif x3 == x4 then LineSegment'LineSegment ((x3, y3), (x4, y4)) ((x1, y1), (x2, y2))
