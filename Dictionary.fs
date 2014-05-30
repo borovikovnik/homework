@@ -48,6 +48,13 @@ let private newFork l r k v =
     let m = max (height l) (height r)
     Fork(l, r, k, v, m + 1)
 
+let private toList tree =
+    let rec toList' tree acc = 
+        match tree with 
+        | Fork(l, r, k, v, _) -> toList' l ((k, v)::toList' r acc)
+        | Empty -> acc
+    toList' tree []
+
 //////////////////////////////
 
 let private rotateLeft tree= 
@@ -131,10 +138,6 @@ let rec private remove k tree =
 //////////////////////////////
 
 let private getEnumerator(tree) =
-    let rec toList tree =
-        match tree with
-        | Empty -> []
-        | Fork(l, r, k, v, h) -> toList l @ (k, v) :: toList r
     let list = toList tree
     let currList = ref list
     let isStart = ref true
@@ -218,6 +221,13 @@ type Map<'key, 'value  when 'key: comparison and 'value: equality> private (tree
                 "Fork(" + toString l + ", " + toString r + ", " + k.ToString() + ", " + v.ToString() + ")"
             | Empty -> "Empty"
         toString tree
+
+    override this.GetHashCode() =
+        let rec getHashCode list =
+            match list with
+            |(k, v)::tl -> k.GetHashCode() * v.GetHashCode() * (getHashCode tl) % 42043
+            |[] -> 1
+        getHashCode (toList tree)
     
     member private this.GetEnumerator() = getEnumerator(tree)
     interface IEnumerable<'key * 'value> with
