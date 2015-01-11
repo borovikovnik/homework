@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CloudFactory", "CloudFactory\CloudFactory.fsproj", "{EC8FA6F1-C37E-46E8-A660-3D5099D43BF3}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "..\Tests\Tests\Tests.fsproj", "{FCB53909-3B06-4FFD-A70F-A7041EE180FF}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{FCB53909-3B06-4FFD-A70F-A7041EE180FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
