@@ -1,0 +1,26 @@
+﻿@model Photo
+@using jpggram.Models
+@{
+    ViewBag.Title = "Фото";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("FileUpload", "Photos", FormMethod.Post, 
+                            new { enctype = "multipart/form-data" }))
+{  
+    <label for="file">Upload Image:</label> 
+    <input type="file" name="file" id="file" style="width: 100%;" /> 
+    <input type="submit" value="Upload" class="submit" /> 
+}
+
+    
+
+@foreach (Photo item in ViewBag.Photos)
+{
+    <div class="photo">
+        <p class="title">
+            @item.Date <span>(@Html.ActionLink("Удалить", "Delete", new { id = item.PhotoId }))</span>
+        </p>
+        <img src="@item.Url" width="420"> <br />
+    </div>
+}
