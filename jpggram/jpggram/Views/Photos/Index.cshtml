@@ -8,9 +8,9 @@
 @using (Html.BeginForm("FileUpload", "Photos", FormMethod.Post, 
                             new { enctype = "multipart/form-data" }))
 {  
-    <label for="file">Upload Image:</label> 
+    <label for="file">Выбери фото, которое хочешь опубликовать:</label> 
     <input type="file" name="file" id="file" style="width: 100%;" /> 
-    <input type="submit" value="Upload" class="submit" /> 
+    <input type="submit" value="Опубликовать" class="submit" /> 
 }
 
     
@@ -18,9 +18,9 @@
 @foreach (Photo item in ViewBag.Photos)
 {
     <div class="photo">
+        <img src="@item.Url" width="420"> <br />
         <p class="title">
             @item.Date <span>(@Html.ActionLink("Удалить", "Delete", new { id = item.PhotoId }))</span>
         </p>
-        <img src="@item.Url" width="420"> <br />
     </div>
 }

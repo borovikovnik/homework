@@ -8,9 +8,6 @@
     <h2>@ViewBag.Message</h2>
 </hgroup>
 
-@*<section class="contact">
-    
-</section>*@
 <div style="float:left; width:150px;">
     @foreach (UserProfile item in ViewBag.Users)
     {
@@ -18,14 +15,14 @@
     }
 </div>
 
-<div style="margin-left:160px;">
+<div style="margin-left:450px;">
     @foreach (Photo item in ViewBag.Photos)
     {
         <div class="photo">
+            <img src="@item.Url" width="420"> <br />
             <p class="title">
                 @item.Date (@item.UserProfile.UserName)
             </p>
-            <img src="@item.Url" width="420"> <br />
         </div>
     }
 </div>
