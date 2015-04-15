@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Planes]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Type] NCHAR(10) NOT NULL,
+	[FreePlase] INT NULL,
+	[Pilot] NCHAR(10) NOT NULL,
+	[FTS] BIT NOT NULL
+)
